@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <!-- If the tool you use generates lowercase hexadecimal letters, convert them to uppercase before you present them to WiX. -->
+    <!-- https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables -->
+    <Product Name="Foobar 1.0" Manufacturer="Acme Ltd." Id="4B300C9F-5224-4462-A6EC-90F147E7C695" UpgradeCode="58657B1E-1FD1-423F-B8C7-B942DA564F8C" Language="1033" Codepage="1252" Version="1.0.0">
+
+        <Package Id="*" Keywords="Installer" Description="Acme's Foobar 1.0 Installer" Comments="Foobar is a registered trademark of Acme Ltd." Manufacturer="Acme Ltd." InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+
+        <!-- If neither Cabinet nor EmbedCab is specified source files will not be included in MSI package -->
+        <Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
+        <Property Id="DiskPrompt" Value="Acme's Foobar 1.0 Installation [1]" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <!-- https://docs.microsoft.com/en-us/previous-versions//aa372057(v=vs.85) -->
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="Acme" Name="Acme">
+                    <Directory Id="INSTALLDIR" Name="Foobar 1.0">
+                        <Component Id="MainExecutable" Guid="A6032A1D-CA3F-44A1-B392-C379B75C27A3">
+                            <File Id="FoobarEXE" Name="FoobarAppl10.exe" DiskId="1" Source="FoobarAppl10.exe" KeyPath="yes">
+                                <Shortcut Id="startmenuFoobar10" Directory="ProgramMenuDir" Name="Foobar 1.0" WorkingDirectory="INSTALLDIR" Icon="Foobar10.exe" IconIndex="0" Advertise="yes" />
+                                <Shortcut Id="desktopFoobar10" Directory="DesktopFolder" Name="Foobar 1.0" WorkingDirectory="INSTALLDIR" Icon="Foobar10.exe" IconIndex="0" Advertise="yes" />
+                            </File>
+                        </Component>
+                        <Component Id="HelperLibrary" Guid="4CCA5F23-B1AF-41F9-A1F4-AA5D93A36DAB">
+                            <File Id="HelperDLL" Name="Helper.dll" DiskId="1" Source="Helper.dll" KeyPath="yes" />
+                        </Component>
+
+                        <Component Id="Manual" Guid="BC68DE23-B68B-4BB3-B714-1C0BA8FAFF54">
+                            <File Id="Manual" Name="Manual.pdf" DiskId="1" Source="Manual.pdf" KeyPath="yes">
+                                <Shortcut Id="startmenuManual" Directory="ProgramMenuDir" Name="Instruction Manual" Advertise="yes" />
+                            </File>
+                        </Component>
+                    </Directory>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramMenuFolder" Name="Programs">
+                <Directory Id="ProgramMenuDir" Name="Foobar 1.0">
+                    <Component Id="ProgramMenuDir" Guid="61943573-50EB-49F4-9F08-AA1C629E21EB">
+                        <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+                        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Type="string" Value="" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="DesktopFolder" Name="Desktop" />
+        </Directory>
+        <Feature Id="Complete" Level="1">
+            <ComponentRef Id="MainExecutable" />
+            <ComponentRef Id="HelperLibrary" />
+            <ComponentRef Id="Manual" />
+            <ComponentRef Id="ProgramMenuDir" />
+        </Feature>
+
+        <Icon Id="Foobar10.exe" SourceFile="FoobarAppl10.exe" />
+
+    </Product>
+</Wix>
