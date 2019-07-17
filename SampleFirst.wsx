@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+    <!-- If the tool you use generates lowercase hexadecimal letters, convert them to uppercase before you present them to WiX. -->
+    <!-- https://docs.microsoft.com/en-us/windows/win32/msi/localizing-the-error-and-actiontext-tables -->
+    <Product Name="Foobar 1.0" Manufacturer="Acme Ltd." Id="4B300C9F-5224-4462-A6EC-90F147E7C695" UpgradeCode="58657B1E-1FD1-423F-B8C7-B942DA564F8C" Language="1033" Codepage="1252" Version="1.0.0">
+        <Package Id="*" Keywords="Installer" Description="Acme's Foobar 1.0 Installer" Comments="Foobar is a registered trademark of Acme Ltd." Manufacturer="Acme Ltd." InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+    </Product>
+</Wix>
