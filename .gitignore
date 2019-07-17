@@ -1,2 +1,6 @@
 WiX/*
 !WiX/PutWiXBinariesHere
+
+*.msi
+*.wixobj
+*.wixpdb
