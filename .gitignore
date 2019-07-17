@@ -4,3 +4,4 @@ WiX/*
 *.msi
 *.wixobj
 *.wixpdb
+*.log
