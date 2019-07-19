@@ -44,12 +44,21 @@
             </Directory>
             <Directory Id="DesktopFolder" Name="Desktop" />
         </Directory>
-        <Feature Id="Complete" Level="1">
-            <ComponentRef Id="MainExecutable" />
-            <ComponentRef Id="HelperLibrary" />
-            <ComponentRef Id="Manual" />
-            <ComponentRef Id="ProgramMenuDir" />
+
+        <Feature Id='Complete' Title='Foobar 1.0' Description='The complete package.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+            <Feature Id='MainProgram' Title='Program' Description='The main executable.' Level='1'>
+                <ComponentRef Id='MainExecutable' />
+                <ComponentRef Id='HelperLibrary' />
+                <ComponentRef Id='ProgramMenuDir' />
+            </Feature>
+
+            <Feature Id='Documentation' Title='Description' Description='The instruction manual.' Level='1000'>
+                <ComponentRef Id='Manual' />
+            </Feature>
         </Feature>
+
+        <UIRef Id="WixUI_Mondo" />
+        <UIRef Id="WixUI_ErrorProgressText" />
 
         <Icon Id="Foobar10.exe" SourceFile="FoobarAppl10.exe" />
 
