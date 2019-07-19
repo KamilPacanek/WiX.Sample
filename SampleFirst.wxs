@@ -11,6 +11,9 @@
         <Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
         <Property Id="DiskPrompt" Value="Acme's Foobar 1.0 Installation [1]" />
 
+        <!-- https://docs.microsoft.com/en-us/windows/win32/msi/maskededit-control -->
+        <Property Id="PIDTemplate"><![CDATA[12345<### ###>@@@@@]]></Property>
+
         <Directory Id="TARGETDIR" Name="SourceDir">
             <!-- https://docs.microsoft.com/en-us/previous-versions//aa372057(v=vs.85) -->
             <Directory Id="ProgramFilesFolder" Name="PFiles">
@@ -57,8 +60,18 @@
             </Feature>
         </Feature>
 
-        <UIRef Id="WixUI_Mondo" />
-        <UIRef Id="WixUI_ErrorProgressText" />
+        <UI Id="MyWixUI_Mondo">
+            <UIRef Id="WixUI_Mondo" />
+            <UIRef Id="WixUI_ErrorProgressText" />
+
+            <DialogRef Id="UserRegistrationDlg" />
+
+            <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="UserRegistrationDlg" Order="3">LicenseAccepted = "1"</Publish>
+            <Publish Dialog="SetupTypeDlg" Control="Back" Event="NewDialog" Value="UserRegistrationDlg">1</Publish>
+        </UI>
+
+        <!-- https://wixtoolset.org//documentation/manual/v3/wixui/wixui_customizations.html -->
+        <WixVariable Id="WixUILicenseRtf" Value="CustomLicense.rtf" />
 
         <Icon Id="Foobar10.exe" SourceFile="FoobarAppl10.exe" />
 

@@ -1,2 +1,2 @@
-.\Wix\candle.exe SampleFirst.wxs
-.\Wix\light.exe -ext WixUIExtension SampleFirst.wixobj
+.\Wix\candle.exe SampleFirst.wxs UserRegistrationDlg.wxs
+.\Wix\light.exe -ext WixUIExtension -out SampleFirst.msi SampleFirst.wixobj UserRegistrationDlg.wixobj
